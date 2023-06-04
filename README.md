@@ -103,3 +103,10 @@ you additionally use [ooni/netem](https://github.com/ooni/netem) to
 simulate TLS censorship. We simulate a "middle box" that filters
 outoing `ClientHello` TLS records and, if the SNI is `twitter.com`,
 it forges a `RST` segment that causes the connection to reset.
+
+## Packet Captures
+
+Each invocation of the program captures packets traveling through
+[ooni/netem](https://github.com/ooni/netem) and writes them inside
+the `client.pcap` file. The repository already includes a PCAP
+file for each possible configuration of the simulation.

@@ -32,11 +32,17 @@ func main() {
 	go simulateTwitter(ctx, topology, twitterReady)
 	<-twitterReady
 
+	// create a client link config
+	clientLinkConfig := newClientLinkConfig(*dpiFlag)
+
+	// setup packet captures
+	clientLinkConfig.LeftNICWrapper = netem.NewPCAPDumper("client.pcap", model.DiscardLogger)
+
 	// create a netstack for the probe
 	probeStack := runtimex.Try1(topology.AddHost(
 		"192.168.0.174", // probe IP address
 		quad8Address,    // default resolver address
-		clientLinkConfig(*dpiFlag),
+		clientLinkConfig,
 	))
 
 	// run code using the given netstack

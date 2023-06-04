@@ -8,8 +8,8 @@ import (
 	"github.com/ooni/probe-engine/pkg/model"
 )
 
-// clientLinkConfig configures the link that the client should use.
-func clientLinkConfig(dpi string) *netem.LinkConfig {
+// newClientLinkConfig configures the link that the client should use.
+func newClientLinkConfig(dpi string) *netem.LinkConfig {
 	switch dpi {
 	case "none":
 		return linkWithoutCensorship()
