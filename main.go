@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"flag"
+	"time"
 
 	"github.com/ooni/netem"
 	"github.com/ooni/probe-engine/pkg/model"
@@ -36,6 +37,7 @@ func main() {
 	clientLinkConfig := newClientLinkConfig(*dpiFlag)
 
 	// setup packet captures
+	loggerSingleton.Info("writing packet capture at client.pcap")
 	clientLinkConfig.LeftNICWrapper = netem.NewPCAPDumper("client.pcap", model.DiscardLogger)
 
 	// create a netstack for the probe
@@ -47,6 +49,10 @@ func main() {
 
 	// run code using the given netstack
 	netemx.WithCustomTProxy(probeStack, probeMain)
+
+	// await one additional second to capture more packets
+	loggerSingleton.Info("wating for packet capture to finish")
+	time.Sleep(1 * time.Second)
 
 	// shutdown background runners
 	cancel()
