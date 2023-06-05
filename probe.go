@@ -71,7 +71,9 @@ func probeFetchUsingHTTPS(idgen *atomic.Int64, domain string, addressSet *dslx.A
 			pool,
 			dslx.TLSHandshakeOptionServerName(twitterDomain),
 		),
-		dslx.HTTPRequestOverTLS(),
+		dslx.HTTPRequestOverTLS(
+			dslx.HTTPRequestOptionHost(twitterDomain),
+		),
 	)
 
 	// obtain the results
