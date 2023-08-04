@@ -51,7 +51,7 @@ func main() {
 	netemx.WithCustomTProxy(probeStack, probeMain)
 
 	// await one additional second to capture more packets
-	loggerSingleton.Info("wating for packet capture to finish")
+	loggerSingleton.Info("waiting for packet capture to finish")
 	time.Sleep(1 * time.Second)
 
 	// shutdown background runners
